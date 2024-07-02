@@ -1,12 +1,12 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import type { Post } from '@/lib/types';
+import type { Comment, Post } from '@/lib/types';
 
 type PostCardProps = {
   post: Post;
 };
-
 export const PostCard = ({ post }: PostCardProps) => {
   return (
     <Link
@@ -23,5 +23,26 @@ export const PostCard = ({ post }: PostCardProps) => {
         </CardContent>
       </Card>
     </Link>
+  );
+};
+
+type CommentCardProps = {
+  comment: Comment;
+};
+export const CommentCard = ({ comment }: CommentCardProps) => {
+  return (
+    <article className="flex items-start gap-4">
+      <Image
+        src={`https://ui-avatars.com/api/?name=${comment.name}`}
+        alt={`${comment.name} avatar`}
+        width={30}
+        height={30}
+        className="rounded-full mt-1"
+      />
+      <div>
+        <p className="font-bold">{comment.name}</p>
+        <p className="text-sm text-muted-foreground">{comment.body}</p>
+      </div>
+    </article>
   );
 };
