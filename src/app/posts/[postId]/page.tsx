@@ -1,4 +1,5 @@
 import { ArrowLeft } from 'lucide-react';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { toInt } from 'radash';
@@ -7,6 +8,10 @@ import { CommentCard } from '@/components/common/content-card';
 import { buttonVariants } from '@/components/ui/button';
 import { getPostComments, getPostDetail, getUserDetail } from '@/lib/api';
 import { cn } from '@/lib/utils';
+
+export const metadata: Metadata = {
+  title: 'Gorest Blog | Post Detail',
+};
 
 type PostDetailProps = {
   params: {
