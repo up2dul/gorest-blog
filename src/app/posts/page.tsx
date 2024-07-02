@@ -12,10 +12,21 @@ type PostProps = {
 
 export default async function Posts({ searchParams }: PostProps) {
   const page = toInt(searchParams.page) || 1;
-  const posts = await getPosts(page);
+  const [err, posts] = await getPosts(page);
+
+  if (err) {
+    return (
+      <main>
+        <h1 className="text-3xl font-bold mb-8">📝 Blog Post List</h1>
+        <p>There was an error while fetching posts</p>
+      </main>
+    );
+  }
 
   return (
-    <>
+    <main>
+      <h1 className="text-3xl font-bold">📝 Blog Post List</h1>
+
       <section className="my-8 flex flex-col gap-4">
         {posts.map(post => (
           <PostCard key={post.id} post={post} />
@@ -23,6 +34,6 @@ export default async function Posts({ searchParams }: PostProps) {
       </section>
 
       <Pagination />
-    </>
+    </main>
   );
 }
