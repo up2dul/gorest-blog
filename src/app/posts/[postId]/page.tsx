@@ -68,7 +68,10 @@ export default async function PostDetail({ params }: PostDetailProps) {
       <section className="mt-10">
         <hr />
         <h1 className="mt-4 text-xl font-bold">
-          💬 Comments ({comments.length})
+          💬{' '}
+          {comments.length > 0
+            ? `Comments (${comments.length})`
+            : 'There are no comments yet'}
         </h1>
         <div className="my-4 flex flex-col gap-3">
           {comments.map(comment => (
