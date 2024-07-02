@@ -9,13 +9,17 @@ type PostCardProps = {
 
 export const PostCard = ({ post }: PostCardProps) => {
   return (
-    <Link key={post.id} href={`/posts/${post.id}`}>
+    <Link
+      key={post.id}
+      href={`/posts/${post.id}`}
+      className="hover:scale-105 transition-transform"
+    >
       <Card>
         <CardHeader>
           <CardTitle className="text-balance">{post.title}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p>{post.body}</p>
+          <p className="line-clamp-2">{post.body}</p>
         </CardContent>
       </Card>
     </Link>
