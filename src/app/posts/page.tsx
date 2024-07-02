@@ -15,9 +15,7 @@ export default async function Posts({ searchParams }: PostProps) {
   const posts = await getPosts(page);
 
   return (
-    <main>
-      <h1 className="text-3xl font-bold">📝 Blog Post List</h1>
-
+    <>
       <section className="my-8 flex flex-col gap-4">
         {posts.map(post => (
           <PostCard key={post.id} post={post} />
@@ -25,6 +23,6 @@ export default async function Posts({ searchParams }: PostProps) {
       </section>
 
       <Pagination />
-    </main>
+    </>
   );
 }
