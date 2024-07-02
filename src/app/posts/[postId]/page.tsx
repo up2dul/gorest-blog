@@ -54,7 +54,7 @@ export default async function PostDetail({ params }: PostDetailProps) {
         <div>
           <p>
             <span className="font-bold">{user.name || 'unknown user'}</span>{' '}
-            posted this
+            posted this ✍️
           </p>
           <p className="text-sm">{user.email}</p>
         </div>
@@ -66,7 +66,10 @@ export default async function PostDetail({ params }: PostDetailProps) {
       </section>
 
       <section className="mt-10">
-        <h1 className="text-xl font-bold">Comments ({comments.length})</h1>
+        <hr />
+        <h1 className="mt-4 text-xl font-bold">
+          💬 Comments ({comments.length})
+        </h1>
         <div className="my-4 flex flex-col gap-3">
           {comments.map(comment => (
             <CommentCard key={comment.id} comment={comment} />
