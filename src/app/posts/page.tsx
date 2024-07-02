@@ -11,7 +11,7 @@ type PostProps = {
 };
 
 export default async function Posts({ searchParams }: PostProps) {
-  const page = toInt(searchParams.page);
+  const page = toInt(searchParams.page) || 1;
   const posts = await getPosts(page);
 
   return (

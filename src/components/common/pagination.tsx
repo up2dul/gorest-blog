@@ -14,7 +14,7 @@ import {
 
 export const Pagination = () => {
   const searchParams = useSearchParams();
-  const currentPage = toInt(searchParams.get('page'));
+  const currentPage = toInt(searchParams.get('page')) || 1;
   const pathname = usePathname();
   const { replace } = useRouter();
 
