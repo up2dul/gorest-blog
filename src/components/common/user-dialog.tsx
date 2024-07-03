@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { ActiveSelect } from './active-select';
 
 export const AddUserDialog = () => {
   return (
@@ -22,36 +23,35 @@ export const AddUserDialog = () => {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[400px]">
         <DialogHeader>
           <DialogTitle>Add user</DialogTitle>
           <DialogDescription>
-            Add a new user here. Click save when you're done.
+            Add a new user here. Click Add when you're done.
           </DialogDescription>
         </DialogHeader>
 
         <form className="grid gap-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
-            <Input id="name" className="col-span-3" />
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="name">Name</Label>
+            <Input id="name" name="name" placeholder="e.g. John Doe" />
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="email" className="text-right">
-              Email
-            </Label>
-            <Input id="email" type="email" className="col-span-3" />
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="e.g. john@example.com"
+            />
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="status" className="text-right">
-              Status
-            </Label>
-            <Input id="status" className="col-span-3" />
+          <div className="flex flex-col gap-2">
+            <Label>Status</Label>
+            <ActiveSelect name="status" />
           </div>
 
           <DialogFooter>
-            <Button type="submit">Save</Button>
+            <Button type="submit">Add!</Button>
           </DialogFooter>
         </form>
       </DialogContent>
@@ -68,36 +68,35 @@ export const EditUserDialog = () => {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[400px]">
         <DialogHeader>
           <DialogTitle>Edit user</DialogTitle>
           <DialogDescription>
-            Make changes to user data here. Click save when you're done.
+            Make changes to user data here. Click Save when you're done.
           </DialogDescription>
         </DialogHeader>
 
         <form className="grid gap-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
-            <Input id="name" className="col-span-3" />
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="name">Name</Label>
+            <Input id="name" name="name" placeholder="e.g. John Doe" />
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="email" className="text-right">
-              Email
-            </Label>
-            <Input id="email" type="email" className="col-span-3" />
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="e.g. john@example.com"
+            />
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="status" className="text-right">
-              Status
-            </Label>
-            <Input id="status" className="col-span-3" />
+          <div className="flex flex-col gap-2">
+            <Label>Status</Label>
+            <ActiveSelect name="status" />
           </div>
 
           <DialogFooter>
-            <Button type="submit">Save</Button>
+            <Button type="submit">Save!</Button>
           </DialogFooter>
         </form>
       </DialogContent>
@@ -114,7 +113,7 @@ export const DeleteUserDialog = () => {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[400px]">
         <DialogHeader>
           <DialogTitle>Delete user</DialogTitle>
           <DialogDescription>
