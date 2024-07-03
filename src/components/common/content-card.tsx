@@ -2,7 +2,6 @@ import { Activity, AtSign, UsersRound } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -11,6 +10,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import type { Comment, Post, User } from '@/lib/types';
+import { DeleteUserDialog, EditUserDialog } from './user-dialog';
 
 type PostCardProps = {
   post: Post;
@@ -85,12 +85,8 @@ export const UserCard = ({ user }: UserCardProps) => {
       </CardContent>
 
       <CardFooter className="flex gap-2">
-        <Button variant="secondary" className="w-1/2">
-          Edit
-        </Button>
-        <Button variant="destructive" className="w-1/2">
-          Delete
-        </Button>
+        <EditUserDialog />
+        <DeleteUserDialog />
       </CardFooter>
     </Card>
   );

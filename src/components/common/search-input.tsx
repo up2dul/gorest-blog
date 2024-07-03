@@ -12,6 +12,7 @@ export const SearchInput = () => {
 
   const handleSearch = debounce({ delay: 600 }, (term: string) => {
     const params = new URLSearchParams(searchParams);
+    params.set('page', '1');
     if (term.length > 0) {
       params.set('name', term);
     } else {
