@@ -22,7 +22,7 @@ export default function RootLayout({
       <body
         className={cn(
           inter.className,
-          'py-24 px-8 sm:px-24 md:px-52 lg:px-64 xl:px-72',
+          'py-24 px-8 sm:px-24 md:px-52 lg:px-64 xl:px-96',
         )}
       >
         <Header />
