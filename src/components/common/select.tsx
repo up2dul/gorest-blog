@@ -6,10 +6,11 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-type GenderSelectProps = {
+type SelectProps = {
   defaultValue?: string;
 };
-export const GenderSelect = ({ defaultValue }: GenderSelectProps) => {
+
+export const GenderSelect = ({ defaultValue }: SelectProps) => {
   return (
     <Select name="gender" defaultValue={defaultValue} required>
       <SelectTrigger>
@@ -23,10 +24,7 @@ export const GenderSelect = ({ defaultValue }: GenderSelectProps) => {
   );
 };
 
-type StatusSelectProps = {
-  defaultValue?: string;
-};
-export const StatusSelect = ({ defaultValue }: StatusSelectProps) => {
+export const StatusSelect = ({ defaultValue }: SelectProps) => {
   return (
     <Select name="status" defaultValue={defaultValue} required>
       <SelectTrigger>

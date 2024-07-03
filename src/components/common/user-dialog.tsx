@@ -37,10 +37,7 @@ export const AddUserDialog = () => {
   );
 };
 
-type EditUserDialogProps = {
-  user: User;
-};
-export const EditUserDialog = ({ user }: EditUserDialogProps) => {
+export const EditUserDialog = ({ user }: { user: User }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>

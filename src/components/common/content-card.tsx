@@ -12,10 +12,7 @@ import {
 import type { Comment, Post, User } from '@/lib/types';
 import { DeleteUserDialog, EditUserDialog } from './user-dialog';
 
-type PostCardProps = {
-  post: Post;
-};
-export const PostCard = ({ post }: PostCardProps) => {
+export const PostCard = ({ post }: { post: Post }) => {
   return (
     <Link
       key={post.id}
@@ -34,10 +31,7 @@ export const PostCard = ({ post }: PostCardProps) => {
   );
 };
 
-type CommentCardProps = {
-  comment: Comment;
-};
-export const CommentCard = ({ comment }: CommentCardProps) => {
+export const CommentCard = ({ comment }: { comment: Comment }) => {
   return (
     <article className="flex items-start gap-4">
       <Image
@@ -55,10 +49,7 @@ export const CommentCard = ({ comment }: CommentCardProps) => {
   );
 };
 
-type UserCardProps = {
-  user: User;
-};
-export const UserCard = ({ user }: UserCardProps) => {
+export const UserCard = ({ user }: { user: User }) => {
   return (
     <Card>
       <CardHeader className="flex items-center gap-2">
