@@ -63,6 +63,12 @@ async function mutateEditUser({
   });
 }
 
+async function mutateDeleteUser(userId: number): Promise<void> {
+  return await fetchData<void>(`${BASEURL}/users/${userId}`, {
+    method: 'DELETE',
+  });
+}
+
 // query
 export const getPosts = tryit(queryPosts);
 export const getPostDetail = tryit(queryPostDetail);
@@ -73,3 +79,4 @@ export const getUserDetail = tryit(queryUserDetail);
 // mutation
 export const addUser = tryit(mutateAddUser);
 export const editUser = tryit(mutateEditUser);
+export const deleteUser = tryit(mutateDeleteUser);

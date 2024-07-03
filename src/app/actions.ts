@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { toInt } from 'radash';
 
-import { addUser, editUser } from '@/lib/api';
+import { addUser, deleteUser, editUser } from '@/lib/api';
 
 export async function addUserAction(
   _: {
@@ -48,4 +48,21 @@ export async function editUserAction(
 
   revalidatePath('/users');
   return { message: `User ${user.name} edited successfully!` };
+}
+
+export async function deleteUserAction(
+  _: {
+    message: string;
+  },
+  formData: FormData,
+) {
+  const userId = toInt(formData.get('userId'));
+  const [err] = await deleteUser(userId);
+
+  if (err) {
+    return { message: err.message };
+  }
+
+  revalidatePath('/users');
+  return { message: 'User deleted successfully!' };
 }

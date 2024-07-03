@@ -77,7 +77,7 @@ export const UserCard = ({ user }: { user: User }) => {
 
       <CardFooter className="flex gap-2">
         <EditUserDialog user={user} />
-        <DeleteUserDialog />
+        <DeleteUserDialog user={user} />
       </CardFooter>
     </Card>
   );

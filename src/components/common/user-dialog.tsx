@@ -1,6 +1,7 @@
 import { Plus } from 'lucide-react';
 
 import { AddUserForm } from '@/components/form/add';
+import { DeleteUserForm } from '@/components/form/delete';
 import { EditUserForm } from '@/components/form/edit';
 import { Button } from '@/components/ui/button';
 import {
@@ -50,7 +51,8 @@ export const EditUserDialog = ({ user }: { user: User }) => {
         <DialogHeader>
           <DialogTitle>Edit user</DialogTitle>
           <DialogDescription>
-            Make changes to user data here. Click Save when you're done.
+            Make changes to user "<span className="font-bold">{user.name}</span>
+            " data here. Click Save when you're done.
           </DialogDescription>
         </DialogHeader>
 
@@ -60,7 +62,7 @@ export const EditUserDialog = ({ user }: { user: User }) => {
   );
 };
 
-export const DeleteUserDialog = () => {
+export const DeleteUserDialog = ({ user }: { user: User }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -73,12 +75,13 @@ export const DeleteUserDialog = () => {
         <DialogHeader>
           <DialogTitle>Delete user</DialogTitle>
           <DialogDescription>
-            Are you sure you want to delete this user?
+            Are you sure you want to delete user "
+            <span className="font-bold">{user.name}</span>"?
           </DialogDescription>
         </DialogHeader>
 
         <DialogFooter>
-          <Button variant="destructive">Yes, delete it!</Button>
+          <DeleteUserForm userId={user.id} />
         </DialogFooter>
       </DialogContent>
     </Dialog>
