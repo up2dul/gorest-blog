@@ -2,7 +2,7 @@
 
 import { useFormState, useFormStatus } from 'react-dom';
 
-import { addUserAction } from '@/app/actions';
+import { editUserAction } from '@/app/actions';
 import { GenderSelect, StatusSelect } from '@/components/common/select';
 import { Button } from '@/components/ui/button';
 import { DialogFooter } from '@/components/ui/dialog';
@@ -27,10 +27,11 @@ const SubmitButton = () => {
 };
 
 export const EditUserForm = ({ user }: { user: User }) => {
-  const [_, formAction] = useFormState(addUserAction, initialState);
+  const [_, formAction] = useFormState(editUserAction, initialState);
 
   return (
     <form action={formAction} className="grid gap-4">
+      <Input name="userId" type="hidden" defaultValue={user.id} />
       <div className="flex flex-col gap-2">
         <Label htmlFor="name">Name</Label>
         <Input

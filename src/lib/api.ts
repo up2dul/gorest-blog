@@ -58,7 +58,7 @@ async function mutateEditUser({
   editedUser: Omit<User, 'id'>;
 }): Promise<User> {
   return await fetchData<User>(`${BASEURL}/users/${userId}`, {
-    method: 'POST',
+    method: 'PATCH',
     body: JSON.stringify(editedUser),
   });
 }
