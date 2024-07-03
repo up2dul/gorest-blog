@@ -44,14 +44,19 @@ export default async function Users({ searchParams }: UsersProps) {
 
       <SearchInput />
 
+      {nameSearch.length > 0 && users.length === 0 ? (
+        <p className="mt-4 text-muted-foreground">No users found</p>
+      ) : (
+        <p className="mt-4 text-muted-foreground">Page {page} of 5</p>
+      )}
+
       <section className="my-8 grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {nameSearch.length > 0 && users.length === 0 && <p>No users found</p>}
         {users.map(user => (
           <UserCard key={user.id} user={user} />
         ))}
       </section>
 
-      <Pagination />
+      {users.length > 0 && <Pagination />}
     </>
   );
 }

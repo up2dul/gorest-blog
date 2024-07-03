@@ -26,6 +26,7 @@ export default async function Posts({ searchParams }: PostsProps) {
   return (
     <>
       <h1 className="text-3xl font-bold">📝 Blog Post List</h1>
+      <p className="mt-4 text-muted-foreground">Page {page} of 5</p>
 
       <section className="my-8 flex flex-col gap-4">
         {posts.map(post => (
