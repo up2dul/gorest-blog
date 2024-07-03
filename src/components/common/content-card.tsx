@@ -1,8 +1,16 @@
+import { Activity, AtSign, UsersRound } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import type { Comment, Post } from '@/lib/types';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import type { Comment, Post, User } from '@/lib/types';
 
 type PostCardProps = {
   post: Post;
@@ -44,5 +52,46 @@ export const CommentCard = ({ comment }: CommentCardProps) => {
         <p className="text-sm text-muted-foreground">{comment.body}</p>
       </div>
     </article>
+  );
+};
+
+type UserCardProps = {
+  user: User;
+};
+export const UserCard = ({ user }: UserCardProps) => {
+  return (
+    <Card>
+      <CardHeader className="flex items-center gap-2">
+        <Image
+          src={`https://ui-avatars.com/api/?name=${user.name}`}
+          alt={`${user.name} avatar`}
+          width={40}
+          height={40}
+          className="rounded-full mt-1"
+        />
+        <CardTitle className="text-balance">{user.name}</CardTitle>
+      </CardHeader>
+
+      <CardContent className="text-sm text-muted-foreground">
+        <p className="flex items-start gap-1 truncate">
+          <AtSign className="w-4" /> {user.email}
+        </p>
+        <p className="flex items-start gap-1 truncate">
+          <UsersRound className="w-4" /> {user.gender}
+        </p>
+        <p className="flex items-start gap-1 truncate">
+          <Activity className="w-4" /> {user.status}
+        </p>
+      </CardContent>
+
+      <CardFooter className="flex gap-2">
+        <Button variant="secondary" className="w-1/2">
+          Edit
+        </Button>
+        <Button variant="destructive" className="w-1/2">
+          Delete
+        </Button>
+      </CardFooter>
+    </Card>
   );
 };
