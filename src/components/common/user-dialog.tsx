@@ -1,5 +1,7 @@
 import { Plus } from 'lucide-react';
 
+import { AddUserForm } from '@/components/form/add';
+import { EditUserForm } from '@/components/form/edit';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -10,9 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { ActiveSelect } from './active-select';
+import type { User } from '@/lib/types';
 
 export const AddUserDialog = () => {
   return (
@@ -27,39 +27,20 @@ export const AddUserDialog = () => {
         <DialogHeader>
           <DialogTitle>Add user</DialogTitle>
           <DialogDescription>
-            Add a new user here. Click Add when you're done.
+            Add a new user here. Click Submit when you're done.
           </DialogDescription>
         </DialogHeader>
 
-        <form className="grid gap-4">
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="name">Name</Label>
-            <Input id="name" name="name" placeholder="e.g. John Doe" />
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="e.g. john@example.com"
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label>Status</Label>
-            <ActiveSelect name="status" />
-          </div>
-
-          <DialogFooter>
-            <Button type="submit">Add!</Button>
-          </DialogFooter>
-        </form>
+        <AddUserForm />
       </DialogContent>
     </Dialog>
   );
 };
 
-export const EditUserDialog = () => {
+type EditUserDialogProps = {
+  user: User;
+};
+export const EditUserDialog = ({ user }: EditUserDialogProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -76,29 +57,7 @@ export const EditUserDialog = () => {
           </DialogDescription>
         </DialogHeader>
 
-        <form className="grid gap-4">
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="name">Name</Label>
-            <Input id="name" name="name" placeholder="e.g. John Doe" />
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="e.g. john@example.com"
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label>Status</Label>
-            <ActiveSelect name="status" />
-          </div>
-
-          <DialogFooter>
-            <Button type="submit">Save!</Button>
-          </DialogFooter>
-        </form>
+        <EditUserForm user={user} />
       </DialogContent>
     </Dialog>
   );
