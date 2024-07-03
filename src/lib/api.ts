@@ -5,26 +5,32 @@ import type { Comment, Post, User } from './types';
 const BASEURL = 'https://gorest.co.in/public/v2';
 const PERPAGE = 10;
 
-async function fetchData<T>(url: string): Promise<T> {
-  const response = await fetch(url);
+async function fetchData<T>(url: string, options?: RequestInit): Promise<T> {
+  const response = await fetch(url, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${process.env.API_TOKEN}`,
+    },
+    ...options,
+  });
   return await response.json();
 }
 
-async function fetchPosts(page: number): Promise<Post[]> {
+async function queryPosts(page: number): Promise<Post[]> {
   return await fetchData<Post[]>(
     `${BASEURL}/posts?per_page=${PERPAGE}&page=${page}`,
   );
 }
 
-async function fetchPostDetail(postId: number): Promise<Post> {
+async function queryPostDetail(postId: number): Promise<Post> {
   return await fetchData<Post>(`${BASEURL}/posts/${postId}`);
 }
 
-async function fetchPostComments(postId: number): Promise<Comment[]> {
+async function queryComments(postId: number): Promise<Comment[]> {
   return await fetchData<Comment[]>(`${BASEURL}/posts/${postId}/comments`);
 }
 
-async function fetchUsers({
+async function queryUsers({
   page,
   nameSearch,
 }: { page: number; nameSearch: string }) {
@@ -33,12 +39,37 @@ async function fetchUsers({
   );
 }
 
-async function fetchUserDetail(userId: number): Promise<User> {
+async function queryUserDetail(userId: number): Promise<User> {
   return await fetchData<User>(`${BASEURL}/users/${userId}`);
 }
 
-export const getPosts = tryit(fetchPosts);
-export const getPostDetail = tryit(fetchPostDetail);
-export const getPostComments = tryit(fetchPostComments);
-export const getUsers = tryit(fetchUsers);
-export const getUserDetail = tryit(fetchUserDetail);
+async function mutateAddUser(newUser: Omit<User, 'id'>): Promise<User> {
+  return await fetchData<User>(`${BASEURL}/users`, {
+    method: 'POST',
+    body: JSON.stringify(newUser),
+  });
+}
+
+async function mutateEditUser({
+  userId,
+  editedUser,
+}: {
+  userId: number;
+  editedUser: Omit<User, 'id'>;
+}): Promise<User> {
+  return await fetchData<User>(`${BASEURL}/users/${userId}`, {
+    method: 'POST',
+    body: JSON.stringify(editedUser),
+  });
+}
+
+// query
+export const getPosts = tryit(queryPosts);
+export const getPostDetail = tryit(queryPostDetail);
+export const getPostComments = tryit(queryComments);
+export const getUsers = tryit(queryUsers);
+export const getUserDetail = tryit(queryUserDetail);
+
+// mutation
+export const addUser = tryit(mutateAddUser);
+export const editUser = tryit(mutateEditUser);
