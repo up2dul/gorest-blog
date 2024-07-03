@@ -26,7 +26,7 @@ export default async function PostDetail({ params }: PostDetailProps) {
 
   if (postErr || userErr || commentsErr) {
     return (
-      <main>
+      <>
         <Link
           href="/"
           className={cn('-ml-4', buttonVariants({ variant: 'link' }))}
@@ -34,12 +34,12 @@ export default async function PostDetail({ params }: PostDetailProps) {
           <ArrowLeft className="mr-2" /> Back
         </Link>
         <p className="mt-6">There was an error while fetching post</p>
-      </main>
+      </>
     );
   }
 
   return (
-    <main>
+    <>
       <Link
         href="/"
         className={cn('-ml-4', buttonVariants({ variant: 'link' }))}
@@ -84,6 +84,6 @@ export default async function PostDetail({ params }: PostDetailProps) {
           ))}
         </div>
       </section>
-    </main>
+    </>
   );
 }
