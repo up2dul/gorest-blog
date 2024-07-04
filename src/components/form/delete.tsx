@@ -14,7 +14,7 @@ const SubmitButton = () => {
   const { pending } = useFormStatus();
 
   return (
-    <Button type="submit" variant="destructive">
+    <Button type="submit" variant="destructive" disabled={pending}>
       {pending ? 'Deleting...' : 'Yes, delete it!'}
     </Button>
   );
