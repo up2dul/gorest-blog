@@ -8,8 +8,10 @@ import { Button } from '@/components/ui/button';
 import { DialogFooter } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { getFieldError } from '@/lib/utils';
 
 const initialState = {
+  errors: null,
   message: '',
 };
 
@@ -26,14 +28,20 @@ const SubmitButton = () => {
 };
 
 export const AddUserForm = () => {
-  const [_, formAction] = useFormState(addUserAction, initialState);
+  const [state, formAction] = useFormState(addUserAction, initialState);
 
   return (
-    <form action={formAction} className="grid gap-4">
+    <form action={formAction} className="grid gap-5">
       <div className="flex flex-col gap-2">
         <Label htmlFor="name">Name</Label>
         <Input id="name" name="name" placeholder="e.g. John Doe" required />
+        {getFieldError(state.errors, 'name') && (
+          <p className="-mt-1 text-red-500 text-sm">
+            {getFieldError(state.errors, 'name')}
+          </p>
+        )}
       </div>
+
       <div className="flex flex-col gap-2">
         <Label htmlFor="email">Email</Label>
         <Input
@@ -43,14 +51,31 @@ export const AddUserForm = () => {
           placeholder="e.g. john@example.com"
           required
         />
+        {getFieldError(state.errors, 'email') && (
+          <p className="-mt-1 text-red-500 text-sm">
+            {getFieldError(state.errors, 'email')}
+          </p>
+        )}
       </div>
+
       <div className="flex flex-col gap-2">
         <Label>Gender</Label>
         <GenderSelect />
+        {getFieldError(state.errors, 'gender') && (
+          <p className="-mt-1 text-red-500 text-sm">
+            {getFieldError(state.errors, 'gender')}
+          </p>
+        )}
       </div>
+
       <div className="flex flex-col gap-2">
         <Label>Status</Label>
         <StatusSelect />
+        {getFieldError(state.errors, 'status') && (
+          <p className="-mt-1 text-red-500 text-sm">
+            {getFieldError(state.errors, 'status')}
+          </p>
+        )}
       </div>
 
       <SubmitButton />
