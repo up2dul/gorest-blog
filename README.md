@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# GoREST Blog
 
-## Getting Started
+> A simple blog posts app using [gorest.co.in](https://gorest.co.in/) API.
 
-First, run the development server:
+> Live preview: [a8k-gorest.vercel.app](https://a8k-gorest.vercel.app)
 
+![image](https://github.com/up2dul/gorest-blog/assets/36098718/274cf5be-4525-4bf1-9aa7-923e32df6298)
+
+
+## About
+
+### Tech stack
+- ⚛️ React 18
+- ⬛ Next.js 14
+- 🎨 Tailwind CSS with shadcn/ui
+- 🔷 TypeScript
+
+### Development tools
+- 📝 [Biome](https://biomejs.dev) — Code formatter and linter
+- 🔤 [Commitlint](https://commitlint.js.org) — Make sure the commit messages are well formatted
+- 🐶 [Husky](https://typicode.github.io/husky) — A git hooks
+- 📋 [Lint Staged](https://github.com/lint-staged/lint-staged) — Running some scripts before committing
+
+## Getting started
+
+### Pre-requisites
+> Requires [Node.js](https://nodejs.org) `>=18.x`. And [pnpm](https://pnpm.io) `>=8.x` is recommended as the package manager.
+
+### Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/up2dul/gorest-blog.git
+
+# or if using SSH
+git clone git@github.com:up2dul/gorest-blog.git
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Move into the project directory
+```bash
+cd gorest-blog
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Install dependencies
+```bash
+pnpm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Setup the environment variables
+Copy the `.env.example` file to `.env.local` and fill in the values.
+```
+API_TOKEN=your-gorest-api-token
+```
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Start the development server
+```bash
+pnpm dev
+```
+The application will be available at `http://localhost:3000`.
