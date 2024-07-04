@@ -1,13 +1,18 @@
+import { Activity, AtSign, UsersRound } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import type { Comment, Post } from '@/lib/types';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import type { Comment, Post, User } from '@/lib/types';
+import { DeleteUserDialog, EditUserDialog } from './user-dialog';
 
-type PostCardProps = {
-  post: Post;
-};
-export const PostCard = ({ post }: PostCardProps) => {
+export const PostCard = ({ post }: { post: Post }) => {
   return (
     <Link
       key={post.id}
@@ -26,10 +31,7 @@ export const PostCard = ({ post }: PostCardProps) => {
   );
 };
 
-type CommentCardProps = {
-  comment: Comment;
-};
-export const CommentCard = ({ comment }: CommentCardProps) => {
+export const CommentCard = ({ comment }: { comment: Comment }) => {
   return (
     <article className="flex items-start gap-4">
       <Image
@@ -44,5 +46,39 @@ export const CommentCard = ({ comment }: CommentCardProps) => {
         <p className="text-sm text-muted-foreground">{comment.body}</p>
       </div>
     </article>
+  );
+};
+
+export const UserCard = ({ user }: { user: User }) => {
+  return (
+    <Card>
+      <CardHeader className="flex items-center gap-2">
+        <Image
+          src={`https://ui-avatars.com/api/?name=${user.name}`}
+          alt={`${user.name} avatar`}
+          width={40}
+          height={40}
+          className="rounded-full mt-1"
+        />
+        <CardTitle className="text-balance">{user.name}</CardTitle>
+      </CardHeader>
+
+      <CardContent className="text-sm text-muted-foreground">
+        <p className="flex items-start gap-1 truncate">
+          <AtSign className="w-4" /> {user.email}
+        </p>
+        <p className="flex items-start gap-1 truncate">
+          <UsersRound className="w-4" /> {user.gender}
+        </p>
+        <p className="flex items-start gap-1 truncate">
+          <Activity className="w-4" /> {user.status}
+        </p>
+      </CardContent>
+
+      <CardFooter className="flex gap-2">
+        <EditUserDialog user={user} />
+        <DeleteUserDialog user={user} />
+      </CardFooter>
+    </Card>
   );
 };

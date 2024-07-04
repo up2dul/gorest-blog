@@ -13,10 +13,34 @@ export type User = {
   status: 'active' | 'inactive';
 };
 
+export type UserErrorResponse = [
+  {
+    field?: string;
+    message?: string;
+  },
+  {
+    field?: string;
+    message?: string;
+  },
+  {
+    field?: string;
+    message?: string;
+  },
+  {
+    field?: string;
+    message?: string;
+  },
+];
+
 export type Comment = {
   id: number;
   post_id: number;
   name: string;
   email: string;
   body: string;
+};
+
+export type InitialState = {
+  errors: null | UserErrorResponse;
+  message: string;
 };

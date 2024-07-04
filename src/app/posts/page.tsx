@@ -4,28 +4,29 @@ import { PostCard } from '@/components/common/content-card';
 import { Pagination } from '@/components/common/pagination';
 import { getPosts } from '@/lib/api';
 
-type PostProps = {
+type PostsProps = {
   searchParams: {
-    page: string;
+    page?: string;
   };
 };
 
-export default async function Posts({ searchParams }: PostProps) {
+export default async function Posts({ searchParams }: PostsProps) {
   const page = toInt(searchParams.page) || 1;
   const [err, posts] = await getPosts(page);
 
   if (err) {
     return (
-      <main>
+      <>
         <h1 className="text-3xl font-bold mb-8">📝 Blog Post List</h1>
         <p>There was an error while fetching posts</p>
-      </main>
+      </>
     );
   }
 
   return (
-    <main>
+    <>
       <h1 className="text-3xl font-bold">📝 Blog Post List</h1>
+      <p className="mt-4 text-muted-foreground">Page {page} of 5</p>
 
       <section className="my-8 flex flex-col gap-4">
         {posts.map(post => (
@@ -34,6 +35,6 @@ export default async function Posts({ searchParams }: PostProps) {
       </section>
 
       <Pagination />
-    </main>
+    </>
   );
 }
