@@ -17,6 +17,9 @@ async function fetchData<T>(url: string, options?: RequestInit): Promise<T> {
     const errorData = await response.json();
     throw new Error(JSON.stringify(errorData));
   }
+  if (response.status === 204) {
+    return { status: 'success' } as T;
+  }
   return await response.json();
 }
 
@@ -67,8 +70,8 @@ async function mutateEditUser({
   });
 }
 
-async function mutateDeleteUser(userId: number): Promise<void> {
-  return await fetchData<void>(`${BASEURL}/users/${userId}`, {
+async function mutateDeleteUser(userId: number): Promise<{ status: string }> {
+  return await fetchData<{ status: string }>(`${BASEURL}/users/${userId}`, {
     method: 'DELETE',
   });
 }
