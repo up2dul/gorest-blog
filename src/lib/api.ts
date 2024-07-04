@@ -13,10 +13,6 @@ async function fetchData<T>(url: string, options?: RequestInit): Promise<T> {
     },
     ...options,
   });
-  if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(JSON.stringify(errorData));
-  }
   if (response.status === 204) {
     return { status: 'success' } as T;
   }
