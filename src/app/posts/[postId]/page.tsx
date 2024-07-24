@@ -21,10 +21,10 @@ type PostDetailProps = {
 
 export default async function PostDetail({ params }: PostDetailProps) {
   const [postErr, post] = await getPostDetail(toInt(params.postId));
-  const [userErr, user] = await getUserDetail(toInt(post?.user_id));
+  const [_, user] = await getUserDetail(toInt(post?.user_id));
   const [commentsErr, comments] = await getPostComments(toInt(params.postId));
 
-  if (postErr || userErr || commentsErr) {
+  if (postErr || commentsErr) {
     return (
       <>
         <Link
@@ -49,8 +49,8 @@ export default async function PostDetail({ params }: PostDetailProps) {
 
       <section className="flex items-center gap-2 mt-6">
         <Image
-          src={`https://ui-avatars.com/api/?name=${user.name || 'x'}`}
-          alt={`${user.name} avatar`}
+          src={`https://ui-avatars.com/api/?name=${user?.name || 'x'}`}
+          alt={`${user?.name} avatar`}
           width={40}
           height={40}
           className="rounded-full"
@@ -58,10 +58,10 @@ export default async function PostDetail({ params }: PostDetailProps) {
 
         <div>
           <p>
-            <span className="font-bold">{user.name || 'unknown user'}</span>{' '}
+            <span className="font-bold">{user?.name || 'unknown user'}</span>{' '}
             posted this ✍️
           </p>
-          <p className="text-sm">{user.email}</p>
+          <p className="text-sm">{user?.email}</p>
         </div>
       </section>
 
