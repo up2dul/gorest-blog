@@ -1,21 +1,28 @@
+import { useDebounceValue } from "@/hooks/use-debounce";
 import { useQueryPosts } from "@/hooks/use-posts";
-import { Card, Col, Pagination, Row, Spin } from "antd";
+import { Card, Col, Input, Pagination, Row, Spin } from "antd";
 import { parseAsInteger, useQueryState } from "nuqs";
+import { useEffect } from "react";
 
 export default function Home() {
-  const [page, setPage] = useQueryState("page", parseAsInteger);
+  const [queryPage, setQueryPage] = useQueryState("page", parseAsInteger);
+  const [queryTitle, setQueryTitle] = useQueryState("title");
+  const [debouncedTitle, setDebouncedTitle] = useDebounceValue(queryTitle, 500);
   const {
     data: posts,
     isLoading,
     isError,
     error,
   } = useQueryPosts({
-    page,
+    page: queryPage,
+    title: debouncedTitle,
   });
+  const postsLength = Number(posts?.data.length);
 
-  if (isLoading) {
-    return <Spin size="large" className="mt-20 w-full" />;
-  }
+  // biome-ignore lint/correctness/useExhaustiveDependencies: unnecessary dependency
+  useEffect(() => {
+    setQueryTitle(debouncedTitle);
+  }, [debouncedTitle]);
 
   if (isError) {
     return <h1>Error: {error.message}</h1>;
@@ -23,23 +30,41 @@ export default function Home() {
 
   return (
     <>
-      <Row gutter={[12, 12]}>
-        {posts?.data.map(post => (
-          <Col key={post.id} className="gutter-row" md={12}>
-            <Card title={post.title} className="w-full">
-              <p className="line-clamp-2">{post.body}</p>
-            </Card>
-          </Col>
-        ))}
-      </Row>
-
-      <Pagination
-        align="center"
-        current={Number(page)}
-        total={50}
-        className="mt-10"
-        onChange={number => setPage(number)}
+      <Input
+        placeholder="Search blog posts..."
+        size="large"
+        className="mb-4"
+        defaultValue={queryTitle || ""}
+        onChange={e => setDebouncedTitle(e.target.value)}
       />
+
+      {isLoading ? (
+        <Spin size="large" className="mt-20 w-full" />
+      ) : (
+        <>
+          <Row gutter={[12, 12]}>
+            {posts?.data.map(post => (
+              <Col key={post.id} className="gutter-row" md={12}>
+                <Card title={post.title} className="w-full">
+                  <p className="line-clamp-2">{post.body}</p>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+
+          {queryTitle !== null && postsLength === 0 && (
+            <h1>No blog posts found with keyword "{queryTitle}"</h1>
+          )}
+
+          <Pagination
+            align="center"
+            current={queryPage || 1}
+            total={postsLength < 10 ? 10 : 50}
+            className="mt-10"
+            onChange={number => setQueryPage(number)}
+          />
+        </>
+      )}
     </>
   );
 }
