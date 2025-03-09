@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-import * as c from "@ant-design/colors";
 import { generateAntdColors } from "./src/lib/utils";
 
 const config: Config = {
@@ -15,7 +14,7 @@ const config: Config = {
       white: "#fff",
       // Add all Ant Design colors
       ...generateAntdColors(),
-    }
+    },
   },
   plugins: [],
 };
