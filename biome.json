@@ -23,6 +23,9 @@
         "noUnusedVariables": "warn",
         "noUnusedFunctionParameters": "warn",
         "noUnusedImports": "warn"
+      },
+      "complexity": {
+        "noExtraBooleanCast": "off"
       }
     }
   },
