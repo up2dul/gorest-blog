@@ -17,6 +17,11 @@ export const AntdConfigProvider = ({ children }: { children: ReactNode }) => {
   });
 
   const handleToggleThemeMode = () => {
+    if (themeState === "light") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
     setThemeState((prev) => prev === "dark" ? "light" : "dark");
     localStorage.setItem("theme", storedTheme === "dark" ? "light" : "dark");
   };
