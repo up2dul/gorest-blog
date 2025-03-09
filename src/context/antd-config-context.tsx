@@ -1,5 +1,11 @@
 import { ConfigProvider, theme } from "antd";
-import { type ReactNode, createContext, useContext, useState } from "react";
+import {
+  type ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 type AntdConfigContextType = {
   theme: "light" | "dark";
@@ -16,13 +22,16 @@ export const AntdConfigProvider = ({ children }: { children: ReactNode }) => {
     return storedTheme === "dark" ? "dark" : "light";
   });
 
-  const handleToggleThemeMode = () => {
-    if (themeState === "light") {
+  useEffect(() => {
+    if (themeState === "dark") {
       document.documentElement.classList.add("dark");
     } else {
       document.documentElement.classList.remove("dark");
     }
-    setThemeState((prev) => prev === "dark" ? "light" : "dark");
+  }, [themeState]);
+
+  const handleToggleThemeMode = () => {
+    setThemeState(prev => (prev === "dark" ? "light" : "dark"));
     localStorage.setItem("theme", storedTheme === "dark" ? "light" : "dark");
   };
 
