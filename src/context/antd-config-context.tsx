@@ -3,7 +3,7 @@ import { type ReactNode, createContext, useContext, useState } from "react";
 
 type AntdConfigContextType = {
   theme: "light" | "dark";
-  setTheme: (newTheme: "light" | "dark") => void;
+  toggleTheme: () => void;
 };
 
 const AntdConfigContext = createContext<AntdConfigContextType | null>(null);
@@ -16,16 +16,16 @@ export const AntdConfigProvider = ({ children }: { children: ReactNode }) => {
     return storedTheme === "dark" ? "dark" : "light";
   });
 
-  const handleSetThemeMode = (newTheme: "light" | "dark") => {
-    setThemeState(newTheme);
-    localStorage.setItem("theme", newTheme);
+  const handleToggleThemeMode = () => {
+    setThemeState((prev) => prev === "dark" ? "light" : "dark");
+    localStorage.setItem("theme", storedTheme === "dark" ? "light" : "dark");
   };
 
   return (
     <AntdConfigContext.Provider
       value={{
         theme: themeState,
-        setTheme: handleSetThemeMode,
+        toggleTheme: handleToggleThemeMode,
       }}
     >
       <ConfigProvider
