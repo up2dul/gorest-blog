@@ -1,4 +1,7 @@
 import * as c from "@ant-design/colors";
+import clsx from "clsx";
+import type { ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 /**
  * Generates a Tailwind-compatible color scale from Ant Design color arrays.
@@ -19,8 +22,22 @@ export function generateAntdColors() {
       .map(([colorName, colorArray]) => [
         colorName,
         Object.fromEntries(
-          (colorArray as string[]).map((color, index) => [index + 1, color])
+          (colorArray as string[]).map((color, index) => [index + 1, color]),
         ),
       ]),
   );
+}
+
+/**
+ * Merges multiple class value inputs into a single string of class names.
+ *
+ * This function accepts any number of inputs representing class names. It first processes them with
+ * the `clsx` function to consolidate strings, arrays, or object maps into a unified string, then uses
+ * `twMerge` to resolve and merge any conflicting Tailwind CSS classes.
+ *
+ * @param inputs - An array of class value inputs, each of which can be of type string, object, or array.
+ * @returns A string containing the merged class names.
+ */
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }
