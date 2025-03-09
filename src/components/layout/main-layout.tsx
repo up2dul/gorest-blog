@@ -10,7 +10,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
       className={cn(
         inter.className,
         // 80px is the height of the header
-        "min-h-[100vh-80px] mt-20 p-6 sm:px-14 md:px-24 lg:px-56 xl:px-72",
+        "min-h-[100vh-80px] mt-20 p-6 pb-10 sm:px-14 md:px-24 lg:px-56 xl:px-72",
       )}
     >
       <Header />
