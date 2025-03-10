@@ -5,19 +5,12 @@ import Link from "next/link";
 import { useState } from "react";
 
 export const PostCard = ({ id, title, body }: Post) => {
-  const { mutateAsync, isError, error, isPending } = useDeletePost(id);
+  const { mutateAsync, isPending } = useDeletePost(id);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleDelete = async () => {
     try {
       await mutateAsync();
-      if (isError) {
-        return message.open({
-          type: "error",
-          content: `Failed to delete post. ${error.message}`,
-        });
-      }
-
       message.open({
         type: "success",
         content: "Post deleted successfully!",
@@ -26,7 +19,7 @@ export const PostCard = ({ id, title, body }: Post) => {
       if (error instanceof Error) {
         message.open({
           type: "error",
-          content: `There is an error: ${error.message}`,
+          content: `Failed to delete post due to: ${error.message}`,
         });
       }
     }
