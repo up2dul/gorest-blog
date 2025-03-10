@@ -86,7 +86,7 @@ export const Unauthorized = () => {
         Get your GoRest API token{" "}
         <a
           href="https://gorest.co.in/my-account/access-tokens"
-          className="text-blue-7 underline"
+          className="text-blue-5 underline"
           target="_blank"
           rel="noreferrer noopener"
         >
