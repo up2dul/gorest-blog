@@ -17,6 +17,7 @@
     "lint": "biome lint .",
     "format": "biome format --write .",
     "check": "biome check --write .",
+    "typecheck": "tsc --noEmit --incremental false",
     "prepare": "husky",
     "commitlint": "commitlint --edit"
   },
