@@ -2,6 +2,7 @@ import { POSTS_KEY } from "@/lib/constants";
 import type { Post } from "@/lib/types";
 import apiClient from "@/services/api-client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { message } from "antd";
 
 type UseQueryPostsOptions = Partial<{
   page: number | null;
@@ -65,6 +66,10 @@ export function useDeletePost(id: number) {
     mutationFn: () => apiClient.delete(`/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [POSTS_KEY] });
+      message.success(`Post deleted successfully! ID: ${id}`);
+    },
+    onError: error => {
+      message.error(`Failed to delete post due to: ${error.message}`);
     },
   });
 }

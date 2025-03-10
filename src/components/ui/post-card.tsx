@@ -1,29 +1,12 @@
 import { useDeletePost } from "@/hooks/use-posts";
 import type { Post } from "@/lib/types";
-import { Card, Modal, message } from "antd";
+import { Card, Modal } from "antd";
 import Link from "next/link";
 import { useState } from "react";
 
 export const PostCard = ({ id, title, body }: Post) => {
-  const { mutateAsync, isPending } = useDeletePost(id);
+  const { mutate, isPending } = useDeletePost(id);
   const [isOpenModal, setIsOpenModal] = useState(false);
-
-  const handleDelete = async () => {
-    try {
-      await mutateAsync();
-      message.open({
-        type: "success",
-        content: "Post deleted successfully!",
-      });
-    } catch (error) {
-      if (error instanceof Error) {
-        message.open({
-          type: "error",
-          content: `Failed to delete post due to: ${error.message}`,
-        });
-      }
-    }
-  };
 
   const cardActions = [
     <Link
@@ -55,9 +38,10 @@ export const PostCard = ({ id, title, body }: Post) => {
       <Modal
         open={isOpenModal}
         title="Confirm deletion"
-        onOk={handleDelete}
+        onOk={() => mutate()}
         onCancel={() => setIsOpenModal(false)}
         okText="Yes, delete it"
+        loading={isPending}
         footer={(_, { OkBtn, CancelBtn }) => (
           <>
             <CancelBtn />
@@ -65,7 +49,7 @@ export const PostCard = ({ id, title, body }: Post) => {
           </>
         )}
       >
-        <p>Are you sure you want to delete this post?</p>
+        <p>Are you sure you want to delete post #{id}?</p>
       </Modal>
 
       <Card
@@ -74,6 +58,9 @@ export const PostCard = ({ id, title, body }: Post) => {
         loading={isPending}
         className="w-full transition-colors border group-hover:border-blue-5"
       >
+        <h1 className="font-medium text-blueDark-5 text-lg dark:text-blueDark-10">
+          #{id}
+        </h1>
         <p className="line-clamp-2">{body}</p>
       </Card>
     </>
