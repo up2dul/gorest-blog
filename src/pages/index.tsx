@@ -1,7 +1,7 @@
+import { PostCard } from "@/components/ui/post-card";
 import { useDebounceValue } from "@/hooks/use-debounce";
 import { useQueryPosts } from "@/hooks/use-posts";
-import { Card, Col, Input, Pagination, Row, Spin } from "antd";
-import Link from "next/link";
+import { Col, Input, Pagination, Row, Spin } from "antd";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { useEffect } from "react";
 
@@ -46,17 +46,7 @@ export default function Home() {
           <Row gutter={[12, 12]}>
             {posts?.data.map(post => (
               <Col key={post.id} className="gutter-row" md={12}>
-                <Link
-                  href={`/post/${post.id}`}
-                  className="block group focus:ring ring-blue-3"
-                >
-                  <Card
-                    title={post.title}
-                    className="w-full transition-colors border group-hover:border-blue-5"
-                  >
-                    <p className="line-clamp-2">{post.body}</p>
-                  </Card>
-                </Link>
+                <PostCard {...post} />
               </Col>
             ))}
           </Row>

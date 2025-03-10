@@ -1,7 +1,7 @@
 import { POSTS_KEY } from "@/lib/constants";
 import type { Post } from "@/lib/types";
 import apiClient from "@/services/api-client";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 type UseQueryPostsOptions = Partial<{
   page: number | null;
@@ -40,12 +40,31 @@ export function useQueryPosts({
  *
  * This hook leverages the useQuery hook to perform an API call and retrieve the details of a post.
  *
- * @param id - A string that uniquely identifies the post.
+ * @param id - A number that uniquely identifies the post.
  * @returns An object containing the post data, along with the loading state, error state, and other query metadata.
  */
-export function useQueryPostDetail(id: string) {
+export function useQueryPostDetail(id: number) {
   return useQuery({
     queryKey: [POSTS_KEY, id],
     queryFn: () => apiClient.get<Post>(`/${id}`),
+  });
+}
+
+/**
+ * Deletes a post and invalidates the relevant query cache.
+ *
+ * This hook leverages a mutation to call the API endpoint for deleting a post identified by the provided ID.
+ * On a successful deletion, it invalidates queries with the POSTS_KEY to ensure that any cached data is refreshed.
+ *
+ * @param id - The unique identifier of the post to delete.
+ * @returns A mutation object used to trigger and manage the delete operation.
+ */
+export function useDeletePost(id: number) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: () => apiClient.delete(`/${id}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [POSTS_KEY] });
+    },
   });
 }

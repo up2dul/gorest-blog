@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 export default function PostDetail() {
   const router = useRouter();
   const { data, isLoading, isError, error } = useQueryPostDetail(
-    router.query.id as string,
+    Number(router.query.id),
   );
   const post = data?.data;
 

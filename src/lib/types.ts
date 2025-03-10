@@ -5,7 +5,7 @@ export type UserAuth = {
 
 export type Post = {
   id: number;
-  user_id: number;
+  user_id?: number;
   title: string;
   body: string;
 };
