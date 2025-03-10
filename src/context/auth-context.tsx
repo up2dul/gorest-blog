@@ -1,3 +1,4 @@
+import { Unauthorized } from "@/components/layout/unauthorized";
 import type { UserAuth } from "@/lib/types";
 import {
   clearUserAuth,
@@ -54,7 +55,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }}
     >
       {/* conditionally render children based on whether userAuth is null or not */}
-      {Boolean(userAuthState?.token) ? children : <h1>Unauthorized</h1>}
+      {Boolean(userAuthState?.token) ? children : <Unauthorized />}
     </AuthContext.Provider>
   );
 };

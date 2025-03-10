@@ -18,20 +18,23 @@ const queryClient = new QueryClient({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <AuthProvider>
-      <QueryClientProvider client={queryClient}>
-        <AntdConfigProvider>
-          <Head>
-            <title>Gorest Blog Posts</title>
-            <meta name="description" content="Blog posts from Gorest API" />
-          </Head>
-          <NuqsAdapter>
-            <MainLayout>
-              <Component {...pageProps} />
-            </MainLayout>
-          </NuqsAdapter>
-        </AntdConfigProvider>
-      </QueryClientProvider>
-    </AuthProvider>
+    <>
+      <Head>
+        <title>Gorest Blog Posts</title>
+        <meta name="description" content="Blog posts from Gorest API" />
+      </Head>
+
+      <AuthProvider>
+        <QueryClientProvider client={queryClient}>
+          <AntdConfigProvider>
+            <NuqsAdapter>
+              <MainLayout>
+                <Component {...pageProps} />
+              </MainLayout>
+            </NuqsAdapter>
+          </AntdConfigProvider>
+        </QueryClientProvider>
+      </AuthProvider>
+    </>
   );
 }
