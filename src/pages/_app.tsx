@@ -6,6 +6,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { NuqsAdapter } from "nuqs/adapters/next/pages";
 import "@/styles/globals.css";
+import { PagesTopLoader } from "nextjs-toploader/pages";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,6 +30,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <AntdConfigProvider>
             <NuqsAdapter>
               <MainLayout>
+                <PagesTopLoader color="#1677ff" showSpinner />
                 <Component {...pageProps} />
               </MainLayout>
             </NuqsAdapter>
