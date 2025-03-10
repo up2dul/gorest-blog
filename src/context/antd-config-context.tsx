@@ -1,4 +1,4 @@
-import { ConfigProvider, message, theme } from "antd";
+import { ConfigProvider, theme } from "antd";
 import {
   type ReactNode,
   createContext,
@@ -15,7 +15,6 @@ type AntdConfigContextType = {
 const AntdConfigContext = createContext<AntdConfigContextType | null>(null);
 
 export const AntdConfigProvider = ({ children }: { children: ReactNode }) => {
-  const [contextHolder] = message.useMessage();
   const { defaultAlgorithm, darkAlgorithm } = theme;
   const storedTheme =
     localStorage.getItem("theme") === "dark" ? "dark" : "light";
