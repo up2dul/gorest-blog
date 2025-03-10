@@ -6,7 +6,6 @@ import { useState } from "react";
 export const Unauthorized = () => {
   const { setUserAuth } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
-  const [messageApi, contextHolder] = message.useMessage();
 
   const validateToken = async (token: string) => {
     try {
@@ -29,25 +28,24 @@ export const Unauthorized = () => {
       const isValid = await validateToken(token);
 
       if (!isValid) {
-        messageApi.open({
+        return message.open({
           type: "error",
           content: "Invalid API token. Please check and try again!",
         });
-        return;
       }
 
       setUserAuth({
         name,
         token,
       });
-      messageApi.open({
+      message.open({
         type: "success",
         content: "API token validated. You are now authorized!",
       });
     } catch (error) {
       if (error instanceof Error) {
         console.error("Error submitting form:", error);
-        messageApi.open({
+        message.open({
           type: "error",
           content: `There is an error: ${error.message}`,
         });
@@ -59,8 +57,6 @@ export const Unauthorized = () => {
 
   return (
     <section className="min-h-screen flex flex-col gap-4 justify-center items-center">
-      {contextHolder}
-
       <h1 className="text-lg text-balance text-center sm:w-3/4">
         You are unauthorized, please input your name and GoRest API token to
         continue
