@@ -26,12 +26,12 @@ const postsInitOptions = {
  */
 export function useQueryPosts({
   page = 1,
-  title = "",
+  title,
 }: UseQueryPostsOptions = postsInitOptions) {
   return useQuery({
     queryKey: [POSTS_KEY, page, title],
     queryFn: () =>
-      apiClient.get<Post[]>(`?per_page=10&page=${page}&title=${title}`),
+      apiClient.get<Post[]>(`?per_page=10&page=${page}&title=${title || ""}`),
   });
 }
 
