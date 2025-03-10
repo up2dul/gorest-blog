@@ -34,3 +34,18 @@ export function useQueryPosts({
       apiClient.get<Post[]>(`?per_page=10&page=${page}&title=${title}`),
   });
 }
+
+/**
+ * Fetches the details of a post identified by the given ID using react-query.
+ *
+ * This hook leverages the useQuery hook to perform an API call and retrieve the details of a post.
+ *
+ * @param id - A string that uniquely identifies the post.
+ * @returns An object containing the post data, along with the loading state, error state, and other query metadata.
+ */
+export function useQueryPostDetail(id: string) {
+  return useQuery({
+    queryKey: [POSTS_KEY, id],
+    queryFn: () => apiClient.get<Post>(`/${id}`),
+  });
+}
