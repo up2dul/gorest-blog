@@ -1,5 +1,6 @@
 import { useAntdConfig } from "@/context/antd-config-context";
 import { cn } from "@/lib/utils";
+import { MoonFilled, SunFilled } from "@ant-design/icons";
 import { Button } from "antd";
 import Link from "next/link";
 
@@ -15,11 +16,13 @@ export const Header = () => {
       )}
     >
       <Link href="/" aria-label="GoRest Blog Posts">
-        <h1 className="text-2xl font-bold">GoRest Blog Posts</h1>
+        <h1 className="text-2xl font-bold">
+          GoRest Blog <span className="hidden sm:inline">Posts</span>
+        </h1>
       </Link>
 
       <Button type="primary" onClick={toggleTheme}>
-        {theme === "light" ? "🌙" : "☀️"}
+        {theme === "light" ? <MoonFilled /> : <SunFilled />}
       </Button>
     </header>
   );

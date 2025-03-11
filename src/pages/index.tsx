@@ -1,7 +1,9 @@
 import { PostCard } from "@/components/ui/post-card";
 import { useDebounceValue } from "@/hooks/use-debounce";
 import { useQueryPosts } from "@/hooks/use-posts";
-import { Col, Input, Pagination, Row, Spin } from "antd";
+import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
+import { FloatButton, Input, Pagination, Spin } from "antd";
+import Link from "next/link";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { useEffect } from "react";
 
@@ -32,10 +34,11 @@ export default function Home() {
   return (
     <>
       <Input
-        placeholder="Search blog posts..."
+        placeholder=" Search blog posts..."
         size="large"
         className="mb-4"
         defaultValue={queryTitle || ""}
+        prefix={<SearchOutlined />}
         onChange={e => setDebouncedTitle(e.target.value)}
       />
 
@@ -43,13 +46,13 @@ export default function Home() {
         <Spin size="large" className="mt-20 w-full" />
       ) : (
         <>
-          <Row gutter={[12, 12]}>
+          <ul className="grid gap-4 grid-cols-1 md:grid-cols-2">
             {posts?.data.map(post => (
-              <Col key={post.id} className="gutter-row" md={12}>
+              <li key={post.id}>
                 <PostCard {...post} />
-              </Col>
+              </li>
             ))}
-          </Row>
+          </ul>
 
           {queryTitle !== null && postsLength === 0 && (
             <h1>No blog posts found with keyword "{queryTitle}"</h1>
@@ -64,6 +67,15 @@ export default function Home() {
           />
         </>
       )}
+
+      <Link href="/create" className="mt-10">
+        <FloatButton
+          shape="square"
+          type="primary"
+          style={{ insetInlineEnd: 24 }}
+          icon={<PlusOutlined />}
+        />
+      </Link>
     </>
   );
 }
