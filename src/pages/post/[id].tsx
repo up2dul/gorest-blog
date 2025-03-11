@@ -1,6 +1,5 @@
 import { useQueryPostDetail } from "@/hooks/use-posts";
 import { Spin } from "antd";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 export default function PostDetail() {
@@ -20,9 +19,6 @@ export default function PostDetail() {
 
   return (
     <section>
-      <Link href="/" className="mb-4 inline-block text-blue-5 underline">
-        Back to posts
-      </Link>
       <h1 className="mb-4 font-medium text-2xl text-balance md:text-3xl">
         {post?.title}
       </h1>

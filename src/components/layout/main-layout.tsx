@@ -1,10 +1,15 @@
+import { Header } from "@/components/layout/header";
+import { BackToHome } from "@/components/ui/back-to-home";
 import { cn } from "@/lib/utils";
 import { Inter } from "next/font/google";
-import { Header } from "./header";
+import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const MainLayout = ({ children }: { children: React.ReactNode }) => {
+  const router = useRouter();
+  const isNotHomePage = router.asPath !== "/";
+
   return (
     <main
       className={cn(
@@ -14,6 +19,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
       )}
     >
       <Header />
+      {isNotHomePage && <BackToHome />}
       {children}
     </main>
   );
