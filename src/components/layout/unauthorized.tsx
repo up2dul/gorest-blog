@@ -27,28 +27,19 @@ export const Unauthorized = () => {
       const token = formData.get("token") as string;
       const isValid = await validateToken(token);
 
-      if (!isValid) {
-        return message.open({
-          type: "error",
-          content: "Invalid API token. Please check and try again!",
+      if (isValid) {
+        setUserAuth({
+          name,
+          token,
         });
+        return message.success("API token validated. You are now authorized!");
       }
 
-      setUserAuth({
-        name,
-        token,
-      });
-      message.open({
-        type: "success",
-        content: "API token validated. You are now authorized!",
-      });
+      message.error("Invalid API token. Please check and try again!");
     } catch (error) {
       if (error instanceof Error) {
         console.error("Error submitting form:", error);
-        message.open({
-          type: "error",
-          content: `There is an error: ${error.message}`,
-        });
+        message.error(`There is an error: ${error.message}`);
       }
     } finally {
       setIsLoading(false);
@@ -66,8 +57,13 @@ export const Unauthorized = () => {
         className="w-5/6 sm:w-4/6 md:w-3/6 lg:w-2/6"
       >
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-          <Input name="name" placeholder="Your name" required />
-          <Input.TextArea name="token" placeholder="API Token" required />
+          <Input size="large" name="name" placeholder="Your name" required />
+          <Input.TextArea
+            size="large"
+            name="token"
+            placeholder="Your API token"
+            required
+          />
           <Button
             htmlType="submit"
             type="primary"
@@ -82,7 +78,7 @@ export const Unauthorized = () => {
         Get your GoRest API token{" "}
         <a
           href="https://gorest.co.in/my-account/access-tokens"
-          className="text-blue-5 underline"
+          className="text-blue-5 transition-colors underline hover:text-blue-4 hover:no-underline"
           target="_blank"
           rel="noreferrer noopener"
         >
