@@ -1,8 +1,9 @@
+import { BASE_URL } from "@/lib/constants";
 import axios from "axios";
 import { clearUserAuth, getUserAuth } from "./auth-storage";
 
 const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
