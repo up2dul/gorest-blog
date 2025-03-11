@@ -18,7 +18,7 @@ export type User = {
   status: "active" | "inactive";
 };
 
-export type CreatePostBody = {
+export type ReqPostBody = {
   user: string;
   user_id: number;
   title: string;
