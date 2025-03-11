@@ -1,8 +1,9 @@
 import { POSTS_KEY } from "@/lib/constants";
-import type { Post } from "@/lib/types";
+import type { CreatePostBody, Post } from "@/lib/types";
 import apiClient from "@/services/api-client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { message } from "antd";
+import { useRouter } from "next/router";
 
 type UseQueryPostsOptions = Partial<{
   page: number | null;
@@ -32,7 +33,9 @@ export function useQueryPosts({
   return useQuery({
     queryKey: [POSTS_KEY, page, title],
     queryFn: () =>
-      apiClient.get<Post[]>(`?per_page=10&page=${page}&title=${title || ""}`),
+      apiClient.get<Post[]>(
+        `/posts?per_page=10&page=${page}&title=${title || ""}`,
+      ),
   });
 }
 
@@ -47,7 +50,7 @@ export function useQueryPosts({
 export function useQueryPostDetail(id: number) {
   return useQuery({
     queryKey: [POSTS_KEY, id],
-    queryFn: () => apiClient.get<Post>(`/${id}`),
+    queryFn: () => apiClient.get<Post>(`/posts/${id}`),
   });
 }
 
@@ -63,13 +66,30 @@ export function useQueryPostDetail(id: number) {
 export function useDeletePost(id: number) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: () => apiClient.delete(`/${id}`),
+    mutationFn: () => apiClient.delete(`/posts/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [POSTS_KEY] });
       message.success(`Post deleted successfully! ID: ${id}`);
     },
     onError: error => {
       message.error(`Failed to delete post due to: ${error.message}`);
+    },
+  });
+}
+
+export function useCreatePost() {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: async (data: CreatePostBody) => {
+      const response = await apiClient.post("/posts", data);
+      return response.data;
+    },
+    onSuccess: data => {
+      queryClient.invalidateQueries({ queryKey: [POSTS_KEY] });
+      message.success(`Post created successfully! ID: ${data.id}`);
+      router.push("/");
     },
   });
 }
