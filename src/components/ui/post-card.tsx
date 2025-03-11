@@ -61,7 +61,7 @@ export const PostCard = ({ id, title, body }: Post) => {
         <h1 className="font-medium text-blueDark-5 text-lg dark:text-blueDark-10">
           #{id}
         </h1>
-        <p className="line-clamp-2">{body}</p>
+        <p className="min-h-11 line-clamp-2">{body}</p>
       </Card>
     </>
   );

@@ -74,6 +74,7 @@ export default function Home() {
           type="primary"
           style={{ insetInlineEnd: 24 }}
           icon={<PlusOutlined />}
+          tooltip={<p>Create a new post</p>}
         />
       </Link>
     </>

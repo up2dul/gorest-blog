@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
-  const isNotHomePage = router.asPath !== "/";
+  const isNotHomePage = router.pathname !== "/";
 
   return (
     <main
