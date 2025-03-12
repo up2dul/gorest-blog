@@ -9,7 +9,7 @@ export const Unauthorized = () => {
 
   const validateToken = async (token: string) => {
     try {
-      const response = await apiClient.get("/", {
+      const response = await apiClient.get("/posts", {
         headers: { Authorization: `Bearer ${token}` },
       });
       return response.status === 200;
