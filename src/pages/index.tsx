@@ -1,13 +1,19 @@
 import { PostCard } from "@/components/ui/post-card";
+import { useAuth } from "@/context/auth-context";
 import { useDebounceValue } from "@/hooks/use-debounce";
 import { useQueryPosts } from "@/hooks/use-posts";
-import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
+import {
+  LogoutOutlined,
+  PlusOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 import { FloatButton, Input, Pagination, Spin } from "antd";
 import Link from "next/link";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { useEffect } from "react";
 
 export default function Home() {
+  const { clearUserAuth } = useAuth();
   const [queryPage, setQueryPage] = useQueryState("page", parseAsInteger);
   const [queryTitle, setQueryTitle] = useQueryState("title");
   const [debouncedTitle, setDebouncedTitle] = useDebounceValue(queryTitle, 500);
@@ -68,7 +74,15 @@ export default function Home() {
         </>
       )}
 
-      <Link href="/create" className="mt-10">
+      <FloatButton
+        shape="square"
+        type="default"
+        style={{ insetBlockEnd: 100 }}
+        icon={<LogoutOutlined />}
+        tooltip={<p>Logout</p>}
+        onClick={clearUserAuth}
+      />
+      <Link href="/create">
         <FloatButton
           shape="square"
           type="primary"
